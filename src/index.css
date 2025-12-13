@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .glass {
+    @apply backdrop-blur-2xl border;
+  }
+
+  .glass-dark {
+    @apply bg-black/40 border-white/10;
+  }
+
+  .glass-light {
+    @apply bg-white/70 border-gray-200/50;
+  }
+
+  .glass-card {
+    @apply glass p-8 rounded-3xl transition-all duration-500 shadow-xl;
+  }
+
+  .glass-card-dark {
+    @apply bg-white/5 border-white/10 hover:bg-white/10;
+  }
+
+  .glass-card-light {
+    @apply bg-white/80 border-gray-200 hover:bg-white/90 shadow-2xl;
+  }
+
+  .pill {
+    @apply px-10 py-5 rounded-full font-bold text-white shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-xl;
+  }
+
+  .pill-dark {
+    @apply bg-gradient-to-r from-cosmic-600 to-cosmic-800;
+  }
+
+  .pill-light {
+    @apply bg-gradient-to-r from-purple-600 to-pink-600;
+  }
+
+  .kanban-header {
+    @apply inline-block px-8 py-4 rounded-full font-bold text-lg shadow-lg;
+  }
+
+  .kanban-header-dark {
+    @apply bg-white/20 text-white;
+  }
+
+  .kanban-header-light {
+    @apply bg-purple-100 text-purple-800;
+  }
+
+  .task-card {
+    @apply glass-card cursor-grab active:cursor-grabbing mb-6 border hover:shadow-2xl transition-all duration-300;
+  }
+
+  .task-card-dark {
+    @apply border-white/10 hover:border-cosmic-500 bg-white/5;
+  }
+
+  .task-card-light {
+    @apply border-gray-200 hover:border-purple-400 bg-white/90;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
