@@ -43,7 +43,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       style: { background: "linear-gradient(to right, #10b981, #34d399)", color: "white" },
     })
 
-    window.location.href = "/login"
+    setTimeout(() => {
+      window.location.href = "/login"
+    }, 500) // Give toast time to show
   }
 
   return (
