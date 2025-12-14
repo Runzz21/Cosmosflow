@@ -122,7 +122,7 @@ export default function Login() {
                 disabled={loading}
                 className="w-full py-6 sm:py-8 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-2xl sm:text-3xl shadow-2xl transition-all duration-300 hover:scale-105 disabled:opacity-70"
               >
-                {loading ? "Loading..." : "Masuk ke Dashboard"}
+                {loading ? "Loading..." : "Log in"}
               </button>
             </form>
 

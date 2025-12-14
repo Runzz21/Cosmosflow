@@ -1,7 +1,7 @@
 // src/components/Layout.tsx → LOGO DOANG, GEDE, CANTIK, NO ERROR!
 import { useState, useEffect } from "react"
 import { Moon, Sun, LayoutDashboard, FolderOpen, Users, BarChart3, LogOut } from "lucide-react"
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import toast from "react-hot-toast"
 import Header from "./Header"
 import logo from "../assets/logo.png" // Ini pasti jalan kalau file ada!
@@ -17,6 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   const [isDark, setIsDark] = useState(true)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const location = useLocation()
 
   useEffect(() => {
     if (isDark) {
@@ -130,13 +131,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       {/* Main Content */}
       <main className={`${isMobile ? "ml-0" : "ml-80"} min-h-screen p-4 sm:p-10`}>
-        <Header 
-          isDark={isDark} 
-          toggleDark={() => setIsDark(!isDark)} 
-          isMobile={isMobile}
-          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-        />
-        <div className="animate-fadeIn mt-8">
+                <Header
+                  isDark={isDark}
+                  toggleDark={() => setIsDark(!isDark)}
+                  isMobile={isMobile}
+                  toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+                  currentPagePath={location.pathname}
+                />        <div className="animate-fadeIn mt-8">
           {children}
         </div>
       </main>

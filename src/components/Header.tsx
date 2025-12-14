@@ -1,14 +1,17 @@
 // src/components/Header.tsx
 import { Moon, Sun, Bell, Menu } from "lucide-react"
+import { useState } from "react"
 
 interface HeaderProps {
   isDark: boolean
   toggleDark: () => void
   isMobile: boolean
   toggleSidebar: () => void
+  currentPagePath: string
 }
 
-export default function Header({ isDark, toggleDark, isMobile, toggleSidebar }: HeaderProps) {
+export default function Header({ isDark, toggleDark, isMobile, toggleSidebar, currentPagePath }: HeaderProps) {
+  const [showInfoModal, setShowInfoModal] = useState(false)
   // AMBIL DATA USER DARI sessionStorage (dari login)
   const userName = sessionStorage.getItem("user_name") || "Pengguna"
   const userRole = sessionStorage.getItem("user_role")
@@ -23,7 +26,19 @@ export default function Header({ isDark, toggleDark, isMobile, toggleSidebar }: 
     return userName.charAt(0).toUpperCase()
   }
 
+  const pageTitles: { [key: string]: string } = {
+    "/": "Dashboard Utama",
+    "/projects": "Project Overview",
+    "/team": "Anggota Tim",
+    "/analitik": "Laporan Analitik",
+  }
+
+  const getCurrentPageTitle = (path: string): string => {
+    return pageTitles[path] || "Dashboard Utama"
+  }
+
   return (
+    <>
     <header className={`mb-10 p-6 rounded-3xl flex justify-between items-center backdrop-blur-xl shadow-2xl border ${
       isDark 
         ? "bg-white/5 border-white/10" 
@@ -38,7 +53,7 @@ export default function Header({ isDark, toggleDark, isMobile, toggleSidebar }: 
         )}
         <div>
           <h2 className="text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 bg-clip-text text-transparent">
-            Dashboard Utama
+            {getCurrentPageTitle(currentPagePath)}
           </h2>
           <p className="text-lg opacity-80 mt-2">
             Selamat datang, <span className="font-bold text-purple-400">{userName}</span>!
@@ -49,7 +64,10 @@ export default function Header({ isDark, toggleDark, isMobile, toggleSidebar }: 
       {/* Kanan: Notif + Dark Mode + Profile + Logout */}
       <div className="flex items-center gap-4">
         {/* Notification Bell */}
-        <button className="relative p-4 rounded-2xl hover:bg-white/10 dark:hover:bg-white/10 transition">
+        <button
+          onClick={() => setShowInfoModal(!showInfoModal)}
+          className="relative p-4 rounded-2xl hover:bg-white/10 dark:hover:bg-white/10 transition"
+        >
           <Bell className="w-6 h-6" />
           <span className="absolute top-2 right-2 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
         </button>
@@ -86,5 +104,36 @@ export default function Header({ isDark, toggleDark, isMobile, toggleSidebar }: 
         )}
       </div>
     </header>
+
+    {showInfoModal && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div className={`p-6 rounded-2xl shadow-xl w-11/12 md:w-1/2 lg:w-1/3 ${
+            isDark ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+          }`}>
+          <h3 className="text-2xl font-bold mb-4">Tentang Web Ini & Petunjuk</h3>
+          <p className="mb-4">
+            Ini adalah website manajemen proyek yang membantu tim untuk mengelola tugas, melacak progres, dan berkolaborasi secara efisien.
+          </p>
+          <h4 className="text-xl font-semibold mb-2">Petunjuk Penggunaan:</h4>
+          <ul className="list-disc list-inside mb-4">
+            <li><strong>Ganti tema terang/gelap menggunakan tombol di sebelah Notifikasi.</strong></li>
+            <li><strong>Sidebar Kiri</strong>: Navigasi ke Dashboard, Projects, Team, Analytics. </li>
+            <li><strong>Filter & Search</strong>: Gunakan search bar untuk cari project cepat</li>
+            <li><strong>Export Laporan</strong>: Klik tombol "Export CSV" di halaman Laporan Analitik</li>
+            <li><strong>Logout</strong>: Klik Sidebar di Kiri atas → Logout</li>
+            <li><strong>Responsif</strong>: Bisa dipakai di HP dan Desktop!</li>
+          </ul>
+          <button
+            onClick={() => setShowInfoModal(false)}
+            className={`mt-4 px-4 py-2 rounded-lg ${
+                isDark ? "bg-purple-600 hover:bg-purple-700 text-white" : "bg-purple-100 hover:bg-purple-200 text-purple-800"
+              } transition`}
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    )}
+    </>
   )
 }

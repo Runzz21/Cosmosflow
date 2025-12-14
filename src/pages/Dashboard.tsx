@@ -190,10 +190,9 @@ export default function Dashboard() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className={`w-full pl-12 sm:pl-16 pr-6 sm:pr-8 py-4 sm:py-5 rounded-2xl text-base sm:text-lg font-medium transition-all focus:ring-4 focus:ring-purple-500/40 outline-none border ${
-                isDark
-                  ? "bg-white/5 border-white/10 placeholder-gray-500 text-white"
-                  : "bg-white/80 border-gray-300/50 placeholder-gray-500 text-gray-900"
-              }`}
+                                                    isDark
+                                                    ? "bg-white/5 border-white/10 placeholder-gray-500 text-white"
+                                                    : "bg-white/80 border-gray-300/50 placeholder-gray-500 text-gray-900"              }`}
             />
           </div>
         </div>
